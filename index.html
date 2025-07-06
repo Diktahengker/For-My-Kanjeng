@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fce7f3 20%, #f3e8ff 40%, #ddd6fe 60%, #c7d2fe 80%, #0f172a 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.15;
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #f472b6, #ec4899);
+            border-radius: 50%;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+            border-radius: 50%;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #60a5fa, #3b82f6);
+            border-radius: 50%;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .shape-4 {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            top: 40%;
+            right: 25%;
+            animation-delay: 1s;
+        }
+
+        .shape-5 {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #34d399, #10b981);
+            border-radius: 50%;
+            bottom: 60%;
+            right: 30%;
+            animation-delay: 3s;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 240, 251, 0.9) 100%);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(236, 72, 153, 0.2);
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(236, 72, 153, 0.15);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 420px;
+            width: calc(100% - 40px);
+        }
+
+        .screen {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            background: linear-gradient(45deg, #1e40af, #ec4899, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(243, 232, 255, 0.6) 100%);
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.15);
+        }
+
+        .intro-text {
+            font-size: 1rem;
+            background: linear-gradient(45deg, #475569, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 240px;
+            margin: 20px auto;
+        }
+
+        .key {
+            width: 55px;
+            height: 55px;
+            border: 2px solid #fbbf24;
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #92400e;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+        }
+
+        .key:hover, .key:active {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            color: white;
+            border-color: #ec4899;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.4);
+        }
+
+        .input-display {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #a78bfa;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+            color: #5b21b6;
+            font-weight: 600;
+            letter-spacing: 3px;
+            box-shadow: inset 0 2px 8px rgba(167, 139, 250, 0.1);
+        }
+
+        .question {
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #1e40af, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .couple-photo {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 12px 32px rgba(236, 72, 153, 0.2);
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #f472b6, #a78bfa, #60a5fa);
+            background-clip: padding-box;
+        }
+
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .countdown-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.15);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .countdown-item:nth-child(1) {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+        }
+
+        .countdown-item:nth-child(2) {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .countdown-item:nth-child(3) {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+        }
+
+        .countdown-item:nth-child(4) {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #1e40af, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ec4899, #f472b6, #a78bfa);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 8px;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+            touch-action: manipulation;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        .btn:hover, .btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.5);
+            background: linear-gradient(135deg, #f472b6, #ec4899, #8b5cf6);
+        }
+
+        .love-message {
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #475569, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+            font-style: italic;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .love-letter {
+            background: linear-gradient(135deg, #fef7ff 0%, #f8fafc 50%, #fef3c7 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(167, 139, 250, 0.2);
+            font-family: 'Georgia', serif;
+            position: relative;
+            border: 3px solid rgba(236, 72, 153, 0.3);
+            margin: 20px 0;
+        }
+
+        .letter-header {
+            text-align: right;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(167, 139, 250, 0.4);
+        }
+
+        .letter-date {
+            font-size: 0.9rem;
+            color: #7c3aed;
+            margin-bottom: 8px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .letter-to {
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #1e40af, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .letter-content {
+            text-align: left;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        .letter-content p {
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .letter-content p:first-child {
+            font-weight: 700;
+            background: linear-gradient(45deg, #1e40af, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.1rem;
+        }
+
+        .letter-signature {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .signature {
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #1e40af, #ec4899, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .letter-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px auto;
+                padding: 20px;
+                width: calc(100% - 20px);
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .keypad {
+                max-width: 200px;
+                gap: 10px;
+            }
+            
+            .key {
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .couple-photo {
+                height: 160px;
+                max-width: 280px;
+            }
+            
+            .countdown-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .countdown-item {
+                padding: 15px;
+            }
+            
+            .countdown-number {
+                font-size: 1.6rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+            
+            .love-letter {
+                padding: 20px;
+                margin: 15px 0;
+            }
+            
+            .letter-content p {
+                font-size: 0.95rem;
+                margin-bottom: 15px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .love-message {
+                font-size: 1rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 320px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .keypad {
+                max-width: 180px;
+            }
+            
+            .key {
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
+            }
+            
+            .couple-photo {
+                height: 140px;
+                max-width: 240px;
+            }
+            
+            .countdown-number {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .container {
+                margin: 15px auto;
+            }
+            
+            .couple-photo {
+                height: 120px;
+            }
+            
+            .countdown-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .countdown-item {
+                padding: 12px;
+            }
+            
+            .countdown-number {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+    </div>
+
+    <div class="container">
+        <!-- Screen 1: Password Entry -->
+        <div class="screen active" id="screen1">
+            <h1>Our Love Story</h1>
+            <div class="card">
+                <p class="intro-text">Enter the secret code to unlock our precious memories together</p>
+                <div class="input-display" id="passwordDisplay">****</div>
+                <div class="keypad">
+                    <div class="key" onclick="addDigit('1')">1</div>
+                    <div class="key" onclick="addDigit('2')">2</div>
+                    <div class="key" onclick="addDigit('3')">3</div>
+                    <div class="key" onclick="addDigit('4')">4</div>
+                    <div class="key" onclick="addDigit('5')">5</div>
+                    <div class="key" onclick="addDigit('6')">6</div>
+                    <div class="key" onclick="addDigit('7')">7</div>
+                    <div class="key" onclick="addDigit('8')">8</div>
+                    <div class="key" onclick="addDigit('9')">9</div>
+                    <div class="key" onclick="clearPassword()">C</div>
+                    <div class="key" onclick="addDigit('0')">0</div>
+                    <div class="key" onclick="checkPassword()">✓</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Question -->
+        <div class="screen" id="screen2">
+            <h1>A Question For You</h1>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop&crop=faces" alt="Couple" class="couple-photo">
+                <div class="question">How long have we been together?</div>
+                <button class="btn" onclick="showAnswer()">Show Our Journey</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Countdown -->
+        <div class="screen" id="screen3">
+            <h1>Our Time Together</h1>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop&crop=faces" alt="Happy Couple" class="couple-photo">
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <div class="love-message">
+                    "Every moment with you is a treasure"
+                </div>
+                <button class="btn" onclick="showLoveLetter()">Read My Letter</button>
+                <button class="btn" onclick="goBack()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Love Letter -->
+        <div class="screen" id="screen4">
+            <h1>A Letter From My Heart</h1>
+            <div class="love-letter">
+                <div class="letter-header">
+                    <div class="letter-date">Today & Always</div>
+                    <div class="letter-to">To My Beloved,</div>
+                </div>
+                <div class="letter-content">
+                    <p>My Dearest Love,</p>
+                    
+                    <p>As I write this letter, my heart overflows with gratitude for having you in my life. Every sunrise brings new hope because I know I get to spend another day with you. Every sunset reminds me of the beautiful moments we've shared together.</p>
+                    
+                    <p>You are not just my partner; you are my best friend, my confidant, and my greatest blessing. Your smile lights up my darkest days, and your laugh is the melody that makes my heart sing. In your eyes, I see our future filled with endless adventures, shared dreams, and unconditional love.</p>
+                    
+                    <p>Thank you for being patient with me, for believing in us, and for choosing to love me every single day. Thank you for the little things - the morning coffee, the goodnight kisses, and the way you hold my hand when we walk together.</p>
+                    
+                    <p>I promise to continue growing with you, to support your dreams, and to love you through all of life's seasons. Together, we can conquer anything that comes our way.</p>
+                    
+                    <p>You are my today, my tomorrow, and my forever.</p>
+                    
+                    <div class="letter-signature">
+                        <p>All my love,</p>
+                        <p class="signature">Your Forever Valentine</p>
+                    </div>
+                </div>
+                <div class="letter-footer">
+                    <button class="btn" onclick="goBack()">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let password = '';
+        const correctPassword = '5708'; // Change this to your desired password
+        let startDate = new Date('2025-04-01T19:18:00'); // Change this to your relationship start date
+
+        function addDigit(digit) {
+            if (password.length < 4) {
+                password += digit;
+                updatePasswordDisplay();
+            }
+        }
+
+        function clearPassword() {
+            password = '';
+            updatePasswordDisplay();
+        }
+
+        function updatePasswordDisplay() {
+            const display = document.getElementById('passwordDisplay');
+            display.textContent = password.length > 0 ? '*'.repeat(password.length) : '****';
+        }
+
+        function checkPassword() {
+            if (password === correctPassword) {
+                showScreen('screen2');
+                password = '';
+                updatePasswordDisplay();
+            } else {
+                alert('Wrong password! Please try again.');
+                clearPassword();
+            }
+        }
+
+        function showAnswer() {
+            showScreen('screen3');
+            startCountdown();
+        }
+
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startCountdown() {
+            function updateCountdown() {
+                const now = new Date();
+                const timeDiff = now - startDate;
+                
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        function goBack() {
+            showScreen('screen1');
+        }
+
+        function showLoveLetter() {
+            showScreen('screen4');
+        }
+
+        // Initialize password display
+        updatePasswordDisplay();
+    </script>
+</body>
+</html>
