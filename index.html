@@ -106,6 +106,127 @@
             width: calc(100% - 40px);
         }
 
+        .first-page-layout {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .first-page-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: linear-gradient(45deg, #f472b6, #a78bfa, #60a5fa);
+            background-clip: padding-box;
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);
+            flex-shrink: 0;
+        }
+
+        .first-page-content {
+            flex: 1;
+            text-align: center;
+        }
+
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .menu-btn {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            touch-action: manipulation;
+        }
+
+        .menu-btn:hover, .menu-btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+        }
+
+        .menu-btn.letter {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .menu-btn.letter:hover, .menu-btn.letter:active {
+            background: linear-gradient(135deg, #f472b6, #ec4899);
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.5);
+        }
+
+        .menu-btn.gallery {
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .menu-btn.gallery:hover, .menu-btn.gallery:active {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.5);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(167, 139, 250, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:nth-child(1) {
+            border: 3px solid #fbbf24;
+        }
+
+        .gallery-item:nth-child(2) {
+            border: 3px solid #f472b6;
+        }
+
+        .gallery-item:nth-child(3) {
+            border: 3px solid #a78bfa;
+        }
+
+        .gallery-item:nth-child(4) {
+            border: 3px solid #60a5fa;
+        }
+
+        .gallery-item:nth-child(5) {
+            border: 3px solid #34d399;
+        }
+
+        .gallery-item:nth-child(6) {
+            border: 3px solid #fb7185;
+        }
+
         .screen {
             display: none;
             animation: slideIn 0.6s ease-out;
@@ -404,6 +525,23 @@
                 width: calc(100% - 20px);
             }
             
+            .first-page-layout {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .first-page-photo {
+                width: 100px;
+                height: 100px;
+                align-self: center;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
             h1 {
                 font-size: 1.5rem;
                 margin-bottom: 20px;
@@ -448,6 +586,11 @@
             
             .btn {
                 padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+            
+            .menu-btn {
+                padding: 14px 20px;
                 font-size: 0.95rem;
             }
             
@@ -538,21 +681,26 @@
         <div class="screen active" id="screen1">
             <h1>Our Love Story</h1>
             <div class="card">
-                <p class="intro-text">Enter the secret code to unlock our precious memories together</p>
-                <div class="input-display" id="passwordDisplay">****</div>
-                <div class="keypad">
-                    <div class="key" onclick="addDigit('1')">1</div>
-                    <div class="key" onclick="addDigit('2')">2</div>
-                    <div class="key" onclick="addDigit('3')">3</div>
-                    <div class="key" onclick="addDigit('4')">4</div>
-                    <div class="key" onclick="addDigit('5')">5</div>
-                    <div class="key" onclick="addDigit('6')">6</div>
-                    <div class="key" onclick="addDigit('7')">7</div>
-                    <div class="key" onclick="addDigit('8')">8</div>
-                    <div class="key" onclick="addDigit('9')">9</div>
-                    <div class="key" onclick="clearPassword()">C</div>
-                    <div class="key" onclick="addDigit('0')">0</div>
-                    <div class="key" onclick="checkPassword()">✓</div>
+                <div class="first-page-layout">
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=150&h=150&fit=crop&crop=faces" alt="Profile Photo" class="first-page-photo">
+                    <div class="first-page-content">
+                        <p class="intro-text">Enter the secret code to unlock our precious memories together</p>
+                        <div class="input-display" id="passwordDisplay">****</div>
+                        <div class="keypad">
+                            <div class="key" onclick="addDigit('1')">1</div>
+                            <div class="key" onclick="addDigit('2')">2</div>
+                            <div class="key" onclick="addDigit('3')">3</div>
+                            <div class="key" onclick="addDigit('4')">4</div>
+                            <div class="key" onclick="addDigit('5')">5</div>
+                            <div class="key" onclick="addDigit('6')">6</div>
+                            <div class="key" onclick="addDigit('7')">7</div>
+                            <div class="key" onclick="addDigit('8')">8</div>
+                            <div class="key" onclick="addDigit('9')">9</div>
+                            <div class="key" onclick="clearPassword()">C</div>
+                            <div class="key" onclick="addDigit('0')">0</div>
+                            <div class="key" onclick="checkPassword()">✓</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -593,13 +741,25 @@
                 <div class="love-message">
                     "Every moment with you is a treasure"
                 </div>
-                <button class="btn" onclick="showLoveLetter()">Read My Letter</button>
-                <button class="btn" onclick="goBack()">Start Over</button>
+                <button class="btn" onclick="showMenu()">Continue Our Story</button>
             </div>
         </div>
 
-        <!-- Screen 4: Love Letter -->
+        <!-- Screen 4: Menu -->
         <div class="screen" id="screen4">
+            <h1>What Would You Like to See?</h1>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=300&fit=crop&crop=faces" alt="Together" class="couple-photo">
+                <div class="menu-container">
+                    <button class="menu-btn letter" onclick="showLoveLetter()">💕 Read Our Love Letter</button>
+                    <button class="menu-btn gallery" onclick="showGallery()">📸 View Our Photo Gallery</button>
+                    <button class="menu-btn" onclick="goBack()">🔒 Start Over</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: Love Letter -->
+        <div class="screen" id="screen5">
             <h1>A Letter From My Heart</h1>
             <div class="love-letter">
                 <div class="letter-header">
@@ -625,8 +785,39 @@
                     </div>
                 </div>
                 <div class="letter-footer">
-                    <button class="btn" onclick="goBack()">Start Over</button>
+                    <button class="btn" onclick="showMenu()">Back to Menu</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Photo Gallery -->
+        <div class="screen" id="screen6">
+            <h1>Our Beautiful Memories</h1>
+            <div class="card">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=300&h=300&fit=crop&crop=faces" alt="Memory 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=300&h=300&fit=crop&crop=faces" alt="Memory 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=300&h=300&fit=crop&crop=faces" alt="Memory 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1573496267526-b9ee2ba7e046?w=300&h=300&fit=crop&crop=faces" alt="Memory 4">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?w=300&h=300&fit=crop&crop=faces" alt="Memory 5">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=300&h=300&fit=crop&crop=faces" alt="Memory 6">
+                    </div>
+                </div>
+                <div class="love-message">
+                    "Each photo tells a story of our love"
+                </div>
+                <button class="btn" onclick="showMenu()">Back to Menu</button>
             </div>
         </div>
     </div>
@@ -669,6 +860,18 @@
             startCountdown();
         }
 
+        function showMenu() {
+            showScreen('screen4');
+        }
+
+        function showLoveLetter() {
+            showScreen('screen5');
+        }
+
+        function showGallery() {
+            showScreen('screen6');
+        }
+
         function showScreen(screenId) {
             const screens = document.querySelectorAll('.screen');
             screens.forEach(screen => screen.classList.remove('active'));
@@ -697,10 +900,6 @@
 
         function goBack() {
             showScreen('screen1');
-        }
-
-        function showLoveLetter() {
-            showScreen('screen4');
         }
 
         // Initialize password display
